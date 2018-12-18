@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="KVM-RetriveConfig" mapIdentifier="costaConfig">
+    <DisplayName>KVM-RetriveConfig</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>3600</ExpiryTimeInSecs>
+    <Get assignTo="spikeArrestEnabled" index="1">
+        <Key>
+            <Parameter>spikeArrestEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="quotaEnabled" index="1">
+        <Key>
+            <Parameter>quotaEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="spikeArrestLimit" index="1">
+        <Key>
+            <Parameter>spikeArrestLimit</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="loggingEnabled" index="1">
+        <Key>
+            <Parameter>loggingEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="priceByItineraryQuota">
+        <Key>
+            <Parameter>PriceByItineraryQuota</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="priceByCruiseQuota">
+        <Key>
+            <Parameter>PriceByCruiseQuota</Parameter>
+        </Key>
+    </Get>
+	<Get assignTo="apiKeyEnabled" index="1">
+        <Key>
+            <Parameter>apiKeyEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="cruisePriceTarget" index="1">
+        <Key>
+            <Parameter>cruisePriceTarget</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="itineraryPriceTarget" index="1">
+        <Key>
+            <Parameter>itineraryPriceTarget</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="sslEnabled" index="1">
+        <Key>
+            <Parameter>sslEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="clientAuthEnabled" index="1">
+        <Key>
+            <Parameter>clientAuthEnabled</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="keyStore" index="1">
+        <Key>
+            <Parameter>keyStore</Parameter>
+        </Key>
+    </Get>
+    <Get assignTo="KeyAlias" index="1">
+        <Key>
+            <Parameter>KeyAlias</Parameter>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

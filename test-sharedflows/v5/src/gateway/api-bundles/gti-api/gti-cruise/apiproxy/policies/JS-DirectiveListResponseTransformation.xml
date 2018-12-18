@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="JS-DirectiveListResponseTransformation">
+    <DisplayName>JS-DirectiveListResponseTransformation</DisplayName>
+    <Properties/>
+    <ResourceURL>jsc://JS-DirectiveListResponseTransformation.js</ResourceURL>
+</Javascript>

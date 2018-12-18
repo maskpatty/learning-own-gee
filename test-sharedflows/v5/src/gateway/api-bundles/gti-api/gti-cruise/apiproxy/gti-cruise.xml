@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="4" name="costa-cruise">
+    <Basepaths>/v1/hal/price</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1500631433885</CreatedAt>
+    <CreatedBy>mshaik6@sapient.com</CreatedBy>
+    <Description></Description>
+    <DisplayName>hal-cruise</DisplayName>
+    <LastModifiedAt>1500637356155</LastModifiedAt>
+    <LastModifiedBy>mshaik6@sapient.com</LastModifiedBy>
+    <Policies>
+        <Policy>AM-RemovePathSuffix</Policy>
+		<Policy>AM-AssignRequestResponse</Policy>
+        <Policy>AM-RemoveQueryParam</Policy>
+        <Policy>ConcurrentRateLimit</Policy>
+        <Policy>EV-ExtractCruiseId</Policy>
+        <Policy>FC-FaultHandling</Policy>
+        <Policy>FC-PreFlowSteps</Policy>
+        <Policy>JS-DynamicQuota</Policy>
+        <Policy>JS-SetMockParameters</Policy>
+        <Policy>JS-SetTargetURLSelectRoom</Policy>
+		<Policy>JS-CheckOutResponseTransformation</Policy>
+        <Policy>KVM-RetrieveCostaConfig</Policy>
+        <Policy>KVM-RetrieveMockParameter</Policy>
+        <Policy>ML-LogProxyError</Policy>
+        <Policy>ML-LogTargetError</Policy>
+        <Policy>QA-Quota</Policy>
+        <Policy>RF-GenericFaultHandler</Policy>
+        <Policy>RF-MethodNotAllowed</Policy>
+        <Policy>RF-UnknownResource</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JS-DynamicQuota.js</Resource>
+        <Resource>jsc://JS-ParseJson.js</Resource>
+        <Resource>jsc://JS-SetMockParameters.js</Resource>
+		<Resource>jsc://JS-CheckOutResponseTransformation.js</Resource>
+        <Resource>jsc://JS-SetTargetURLSelectRoom.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>addroom</TargetEndpoint>
+        <TargetEndpoint>bookingconfirmation</TargetEndpoint>
+        <TargetEndpoint>cruiseroominfo</TargetEndpoint>
+        <TargetEndpoint>default</TargetEndpoint>
+        <TargetEndpoint>mock</TargetEndpoint>
+        <TargetEndpoint>paynow</TargetEndpoint>
+        <TargetEndpoint>paymentstatus</TargetEndpoint>
+        <TargetEndpoint>checkout</TargetEndpoint>
+        <TargetEndpoint>selectroom</TargetEndpoint>
+        <TargetEndpoint>updateroom</TargetEndpoint>
+    </TargetEndpoints>
+    <validate>false</validate>
+</APIProxy>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging async="false" continueOnError="false" enabled="true" name="ML-LogProxyError">
+    <DisplayName>ML-LogProxyError</DisplayName>
+    <File>
+        <Message>
+            CorrelationContextId={correlationContextId}
+            client.host={client.host}
+            client.port={client.port}
+            client.received.end.time={client.received.end.time}
+            client.received.start.time={client.received.start.time}
+            client.sent.end.time={client.sent.end.time}
+            client.sent.start.time={client.sent.start.time}
+            error.message={error.message}
+            error.reason.phrase={error.reason.phrase}
+            error.status.code={error.status.code}
+            message.reason.phrase={message.reason.phrase}
+            response.status.code={response.status.code}
+            =====
+            request.content={request.content}
+            =====
+            error.content={error.content}
+            =====
+            response.content={response.content}
+            =====
+</Message>
+        <FileName>ProxyError.log</FileName>
+        <FileRotationOptions rotateFileOnStartup="true">
+            <FileRotationType>SIZE</FileRotationType>
+            <MaxFileSizeInMB>10</MaxFileSizeInMB>
+            <MaxFilesToRetain>10</MaxFilesToRetain>
+        </FileRotationOptions>
+    </File>
+    <logLevel>ERROR</logLevel>
+</MessageLogging>

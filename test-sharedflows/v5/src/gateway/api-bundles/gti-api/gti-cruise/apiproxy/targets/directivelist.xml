@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="directivelist">
+    <Description/>
+    <FaultRules>
+        <FaultRule name="ErrorHandling">
+            <Step>
+                <Name>FC-CostaErrorHandling</Name>
+            </Step>
+            <Step>
+                <Name>FC-FaultHandling</Name>
+                <Condition>(brandApiError != "true")</Condition>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <DefaultFaultRule name="default-faultrule">
+        <Step>
+            <Name>ML-LogTargetError</Name>
+        </Step>
+        <Step>
+            <Name>RF-GenericFaultHandler</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>QA-Quota</Name>
+                <Condition>(quotaEnabled == "true")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-DynamicTargetPath</Name>
+            </Step>
+            <Step>
+                <Name>AM-RemoveHeaders</Name>
+            </Step>
+            <Step>
+                <Name>JS-DirectiveListRequestTransformation</Name>
+            </Step>
+        </Request>
+        <Response>
+            <Step>
+                <Name>JS-DirectiveListResponseTransformation</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <Name>FC-LogMasking</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <Properties>
+            <Property name="connect.timeout.millis">180000</Property>
+        </Properties>
+        <SSLInfo>
+            <Enabled>{sslEnabled}</Enabled>
+            <ClientAuthEnabled>{clientAuthEnabled}</ClientAuthEnabled>
+            <KeyStore>{keyStore}</KeyStore>
+            <KeyAlias>{KeyAlias}</KeyAlias>
+        </SSLInfo>
+        <LoadBalancer>
+            <Server name="costatarget"/>
+        </LoadBalancer>
+        <Path>{travelDirectiveListTarget}</Path>
+    </HTTPTargetConnection>
+</TargetEndpoint>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <Description/>
+    <FaultRules>
+        <FaultRule name="ErrorHandling">
+            <Step>
+                <Name>FC-FaultHandling</Name>
+                <Condition>(brandApiError != "true")</Condition>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <DefaultFaultRule name="default-faultrule">
+		<Step>
+            <Name>AM-SetHeaderBrandApiError</Name>
+        </Step>
+        <Step>
+            <Name>ML-LogProxyError</Name>
+        </Step>
+        <Step>
+            <Name>RF-GenericFaultHandler</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
+    
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>FC-CostaHeaderValidation</Name>
+            </Step>
+			<Step>
+                <Name>KVM-RetrieveCostaConfig</Name>
+            </Step>
+            <Step>
+                <Name>FC-PreFlowSteps</Name>
+            </Step>
+            <Step>
+                <Name>JS-DynamicQuota</Name>
+                <Condition>(quotaEnabled == "true")</Condition>
+            </Step>
+            <Step>
+                <Name>KVM-RetrieveMockParameter</Name>
+                <Condition>(verifyapikey.VerifyAPIKey.enablemock = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-SetMockParameters</Name>
+                <Condition>(verifyapikey.VerifyAPIKey.enablemock = "true")</Condition>
+            </Step>
+            <Step>
+                <Name>JS-PreserveOriginalVerb</Name>
+                <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/bookingconfirmation")</Condition>
+            </Step>
+			<Step>
+                <Name>KVM-RetrieveCostaError</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+        </Response>
+    </PostFlow>
+    <PostClientFlow>
+        <Request/>
+        <Response>
+            <Step>
+                <Name>ML-MessageLog</Name>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <Flows>
+		<Flow name="Select Room">
+            <Description>Select Room</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room/select") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="Cruise Room Info">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room/search") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Add Room">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Update Room">
+            <Description/>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room") and (request.verb = "PUT")</Condition>
+        </Flow>
+
+        <Flow name="Pay Now">
+            <Description>Room Payment opeartion</Description>
+            <Request/>
+			<Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/price/payment") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Payment Status">
+            <Description>Room Payment Status opeartion</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/price/payment/status") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Checkout">
+            <Description>Checkout Room on Cruise Summary Page</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/checkout") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Booking Confirmation">
+            <Description>Booking Confirmation</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/bookingconfirmation") and (originalVerb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Cruise List">
+            <Description>Cruise List API</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/list") and (request.verb = "GET")</Condition>
+        </Flow>
+
+        <Flow name="Travel Directive List - Document">
+            <Description>Travel Directive List - Document</Description>
+            <Request/>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/directive/list") and (request.verb = "POST")</Condition>
+        </Flow>
+
+        <Flow name="Method Not Allowed">
+            <Request>
+                <Step>
+                    <Name>RF-MethodNotAllowed</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(((proxy.pathsuffix MatchesPath "/{cruiseId}/room/select") and !(request.verb = "POST")) || ((proxy.pathsuffix MatchesPath "/{cruiseId}/room") and !(request.verb = "POST")) ||((proxy.pathsuffix MatchesPath "/{cruiseId}/room") and !(request.verb = "PUT")) ||((proxy.pathsuffix MatchesPath "/{cruiseId}/room/search") and !(request.verb = "POST")) ||((proxy.pathsuffix MatchesPath "/{cruiseId}/price/payment") and !(request.verb = "POST")) ||((proxy.pathsuffix MatchesPath "/{cruiseId}/checkout") and !(request.verb = "POST")) ||((proxy.pathsuffix MatchesPath "/{cruiseId}/bookingconfirmation") and !(originalVerb = "POST")) || ((proxy.pathsuffix MatchesPath "/list") and !(request.verb = "GET")) || ((proxy.pathsuffix MatchesPath "/{cruiseId}/directive/list") and !(request.verb = "POST")))</Condition>
+        </Flow>
+
+        <Flow name="Unknown Resource">
+            <Request>
+                <Step>
+                    <Name>RF-UnknownResource</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+
+    <HTTPProxyConnection>
+        <BasePath>/v2/costa/cruise</BasePath>
+        <Properties/>
+        <VirtualHost>default</VirtualHost>
+    </HTTPProxyConnection>
+
+    <RouteRule name="mock">
+        <Condition>(verifyapikey.VerifyAPIKey.enablemock ="true" and request.queryparam.serviceName != null and request.queryparam.responseType != null)</Condition>
+        <TargetEndpoint>mock</TargetEndpoint>
+    </RouteRule>
+   
+    <RouteRule name="CruiseRoomInfo">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room/search") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>cruiseroominfo</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="AddRoom">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>addroom</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="UpdateRoom">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room") and (request.verb = "PUT")</Condition>
+        <TargetEndpoint>updateroom</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="PayNow">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/price/payment") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>paynow</TargetEndpoint>
+    </RouteRule>
+	
+	<RouteRule name="PaymentStatus">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/price/payment/status") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>paymentStatus</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="Checkout">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/checkout") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>checkout</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="BookingConfirmation">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/bookingconfirmation") and (originalVerb = "POST")</Condition>
+        <TargetEndpoint>bookingconfirmation</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="List">
+        <Condition>(proxy.pathsuffix MatchesPath "/list") and (request.verb = "GET")</Condition>
+        <TargetEndpoint>list</TargetEndpoint>
+    </RouteRule>
+	
+	<RouteRule name="holdrelease">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/room/select") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>holdrelease</TargetEndpoint>
+    </RouteRule>
+
+    <RouteRule name="directivelist">
+        <Condition>(proxy.pathsuffix MatchesPath "/{cruiseId}/directive/list") and (request.verb = "POST")</Condition>
+        <TargetEndpoint>directivelist</TargetEndpoint>
+    </RouteRule>
+    
+</ProxyEndpoint>

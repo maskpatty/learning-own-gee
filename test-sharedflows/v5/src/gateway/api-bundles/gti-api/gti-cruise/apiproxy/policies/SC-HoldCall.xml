@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-HoldCall">
+    <DisplayName>SC-HoldCall</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="request">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Headers>
+                <Header name="Accept">application/json</Header>
+            </Headers>
+            <Payload contentType="application/json" variablePrefix="@" variableSuffix="#">
+                @holdJsonPayload#
+            </Payload>
+        </Set>
+    </Request>
+    <Response>serviceCalloutResponse</Response>
+    <HTTPTargetConnection>
+        <Properties>
+            <Property name="connect.timeout.millis">180000</Property>
+        </Properties>
+        <SSLInfo>
+            <Enabled>{sslEnabled}</Enabled>
+            <ClientAuthEnabled>{clientAuthEnabled}</ClientAuthEnabled>
+            <KeyStore>{keyStore}</KeyStore>
+            <KeyAlias>{KeyAlias}</KeyAlias>
+        </SSLInfo>
+        <LoadBalancer>
+            <Server name="costatarget"/>
+        </LoadBalancer>
+        <Path>{holdTarget}</Path>
+    </HTTPTargetConnection>
+</ServiceCallout>
