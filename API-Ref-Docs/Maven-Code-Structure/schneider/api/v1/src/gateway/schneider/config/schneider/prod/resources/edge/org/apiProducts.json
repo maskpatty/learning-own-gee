@@ -1,0 +1,12 @@
+[  {
+		"apiResources": ["/**", "/"],
+		"approvalType": "auto",
+		"attributes": [],
+		"description": "Contains brand SBN and experience apis for cunardprod env",
+		"displayName": "CunardProduct",
+		"environments": ["cunardprod"],
+		"name": "CunardProduct",
+		"proxies": ["cunard-data", "exp-data", "cunard-cruise", "cunard-email", "cunard-mariner", "cunard-price", "cunard-travel", "cunard-transportation", "exp-cruise", "exp-mariner", "exp-email", "exp-price", "exp-travel", "exp-transportation","exp-worldpayintegration", "cunard-nonexistentapi","cunard-landtour","exp-landtour","exp-hotel","cunard-hotel"],
+		"scopes": ["public"]
+	}
+]

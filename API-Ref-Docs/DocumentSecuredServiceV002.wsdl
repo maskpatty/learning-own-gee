@@ -1,0 +1,753 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://document.service.oreo.schneider.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="DocumentSecuredServiceV002" targetNamespace="http://document.service.oreo.schneider.com/">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://document.service.oreo.schneider.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://document.service.oreo.schneider.com/">
+<xs:element name="attListType" type="tns:attListType"/>
+<xs:element name="attType" type="tns:attType"/>
+<xs:element name="docAccess" type="tns:docAccessBean"/>
+<xs:element name="documentBeanV001" type="tns:documentBeanV001"/>
+<xs:element name="documentBeanV002" type="tns:documentBeanV002"/>
+<xs:element name="documentCountBean" type="tns:documentCountBean"/>
+<xs:element name="documentCountByRangeBean" type="tns:documentCountByRangeBean"/>
+<xs:element name="exportDocBean" type="tns:exportDocBean"/>
+<xs:element name="exportDocList" type="tns:exportDocList"/>
+<xs:element name="exportDocListQueryBean" type="tns:exportDocListQueryBean"/>
+<xs:element name="exportDocListResponse" type="tns:exportDocListResponse"/>
+<xs:element name="file" nillable="true" type="xs:anyType"/>
+<xs:element name="getDocDetails" type="tns:getDocDetails"/>
+<xs:element name="getDocDetailsByRef" type="tns:getDocDetailsByRef"/>
+<xs:element name="getDocDetailsByRefResponse" type="tns:getDocDetailsByRefResponse"/>
+<xs:element name="getDocDetailsResponse" type="tns:getDocDetailsResponse"/>
+<xs:element name="getDocumentCount" type="tns:getDocumentCount"/>
+<xs:element name="getDocumentCountByRange" type="tns:getDocumentCountByRange"/>
+<xs:element name="getDocumentCountByRangeResponse" type="tns:getDocumentCountByRangeResponse"/>
+<xs:element name="getDocumentCountResponse" type="tns:getDocumentCountResponse"/>
+<xs:element name="getDocumentList" type="tns:getDocumentList"/>
+<xs:element name="getDocumentListResponse" type="tns:getDocumentListResponse"/>
+<xs:element name="localeBean" type="tns:localeBean"/>
+<xs:element name="program" type="tns:programBean"/>
+<xs:element name="queryBean" type="tns:queryBean"/>
+<xs:element name="queryItem" type="tns:queryItemBean"/>
+<xs:element name="rangeBeanV001" type="tns:rangeBeanV001"/>
+<xs:element name="scopeBean" type="tns:scopeBean"/>
+<xs:element name="userBean" type="tns:userBean"/>
+<xs:complexType name="getDocDetails">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element minOccurs="0" name="display" type="tns:docDisplayBeans"/>
+<xs:element name="docOid" type="xs:long"/>
+<xs:element minOccurs="0" name="scopeIndependant" type="xs:boolean"/>
+<xs:element minOccurs="0" name="version" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="userBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="acl" type="xs:string"/>
+<xs:element minOccurs="0" name="assertion" type="xs:string"/>
+<xs:element minOccurs="0" name="sourceId" type="xs:string"/>
+<xs:element minOccurs="0" name="userId" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="scopeBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="brand" type="xs:string"/>
+<xs:element minOccurs="0" name="channel" type="xs:string"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element minOccurs="0" name="function" type="xs:string"/>
+<xs:element minOccurs="0" name="markets" type="xs:string"/>
+<xs:element minOccurs="0" name="privacy" type="xs:string"/>
+<xs:element minOccurs="0" name="program" type="xs:string"/>
+<xs:element minOccurs="0" name="project" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="localeBean">
+<xs:sequence>
+<xs:element name="isoCountry" type="xs:string"/>
+<xs:element name="isoLanguage" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="docDisplayBeans">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="displayBean" type="tns:docDisplayBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="docDisplayBean">
+<xs:sequence/>
+<xs:attribute name="field" type="tns:docDisplayFieldBean" use="required"/>
+</xs:complexType>
+<xs:complexType name="getDocDetailsResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:documentBeanV002"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="documentBeanV002">
+<xs:complexContent>
+<xs:extension base="tns:documentBeanV001">
+<xs:sequence>
+<xs:element minOccurs="0" name="displayOrder" type="xs:int"/>
+<xs:element minOccurs="0" name="fileContents" type="tns:fileContentBean"/>
+<xs:element minOccurs="0" name="flipFlopGenerated" type="xs:boolean"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="documentBeanV001">
+<xs:sequence>
+<xs:element minOccurs="0" name="attributeLists">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attributeList" type="tns:attributeListBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="attributes">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="tns:attributeBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="audience" type="tns:audienceBean"/>
+<xs:element minOccurs="0" name="bannerUrl" type="xs:string"/>
+<xs:element minOccurs="0" name="creationDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element minOccurs="0" name="docAccesses">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="docAccess" type="tns:docAccessBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="docId" type="xs:string"/>
+<xs:element minOccurs="0" name="docOwner" type="xs:string"/>
+<xs:element minOccurs="0" name="docTypeGroups">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="docTypeGroup" type="tns:documentTypeGroupBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="documentDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="documentType" type="tns:documentTypeBean"/>
+<xs:element minOccurs="0" name="expireDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="files">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="file" type="tns:fileBeanV001"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="keywords" type="xs:string"/>
+<xs:element minOccurs="0" name="lastModificationDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="locales">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="locale" type="tns:localeBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="numberOfPage" type="xs:int"/>
+<xs:element minOccurs="0" name="partNumber" type="xs:string"/>
+<xs:element minOccurs="0" name="productReferences">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="productReference" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="programs">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="program" type="tns:programBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="publicationDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="ranges">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="range" type="tns:rangeBeanV001"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element minOccurs="0" name="reference" type="xs:string"/>
+<xs:element minOccurs="0" name="remark" type="xs:string"/>
+<xs:element minOccurs="0" name="revision" type="xs:string"/>
+<xs:element minOccurs="0" name="title" type="xs:string"/>
+<xs:element minOccurs="0" name="version" type="xs:string"/>
+</xs:sequence>
+<xs:attribute name="author" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="fileContentBean">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="fileContent" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="attributeListBean">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="values" nillable="true" type="xs:string"/>
+</xs:sequence>
+<xs:attribute name="name" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="attributeBean">
+<xs:sequence/>
+<xs:attribute name="name" type="xs:string"/>
+<xs:attribute name="value" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="audienceBean">
+<xs:sequence/>
+<xs:attribute name="id" type="xs:long"/>
+<xs:attribute name="name" type="xs:string"/>
+<xs:attribute name="translation" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="docAccessBean">
+<xs:sequence/>
+<xs:attribute name="name" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="documentTypeGroupBean">
+<xs:sequence/>
+<xs:attribute name="id" type="xs:long"/>
+<xs:attribute name="translation" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="documentTypeBean">
+<xs:sequence/>
+<xs:attribute name="englishLabel" type="xs:string"/>
+<xs:attribute name="id" type="xs:long"/>
+<xs:attribute name="name" type="xs:string"/>
+<xs:attribute name="translation" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="fileBeanV001">
+<xs:complexContent>
+<xs:extension base="tns:fileBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="downloadLink" type="xs:string"/>
+<xs:element minOccurs="0" name="type" type="xs:string"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="fileBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="extension" type="xs:string"/>
+<xs:element minOccurs="0" name="filename" type="xs:string"/>
+<xs:element minOccurs="0" name="id" type="xs:string"/>
+<xs:element minOccurs="0" name="sha256" type="xs:string"/>
+<xs:element minOccurs="0" name="size" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="programBean">
+<xs:sequence/>
+<xs:attribute name="name" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="rangeBeanV001">
+<xs:sequence/>
+<xs:attribute name="highlighted" type="xs:string"/>
+<xs:attribute name="id" type="xs:long"/>
+<xs:attribute name="rangeId" type="xs:string"/>
+<xs:attribute name="status" type="xs:string"/>
+<xs:attribute name="translation" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="getDocumentCountByRange">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element minOccurs="0" name="query" type="tns:queryBean"/>
+<xs:element minOccurs="0" name="search" type="tns:searchBeans"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="queryBean">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attListType" nillable="true" type="tns:attListType"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attListValues" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attType" nillable="true" type="tns:attType"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="attValues" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="audiences" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="availableForCountryId" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="availableForCountryName" nillable="true" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="brands" nillable="true" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="categories" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="docAccesses">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="docAccess" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="docTypeGroups" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="docTypes" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="fileExtensions" nillable="true" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="locales" nillable="true" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="nodeIds" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="product" type="xs:string"/>
+<xs:element minOccurs="0" name="productCommRef" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="queryBean" type="tns:queryItemBean"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="rangeIds" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="rangeStatus" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="ranges" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="searchAttributeFilter" type="xs:string"/>
+<xs:element minOccurs="0" name="searchString" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="tags" nillable="true" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="attListType">
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<xs:attribute name="name" type="xs:string"/>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<xs:complexType name="attType">
+<xs:simpleContent>
+<xs:extension base="xs:string">
+<xs:attribute name="name" type="xs:string"/>
+</xs:extension>
+</xs:simpleContent>
+</xs:complexType>
+<xs:complexType name="queryItemBean">
+<xs:sequence/>
+<xs:attribute name="name" type="tns:queryItemName"/>
+<xs:attribute name="value" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="searchBeans">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="searchBean" type="tns:searchBean"/>
+</xs:sequence>
+<xs:attribute name="defaultSearchValue" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="searchBean">
+<xs:sequence/>
+<xs:attribute name="field" type="tns:searchFieldBean" use="required"/>
+<xs:attribute name="searchValue" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="getDocumentCountByRangeResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:documentCountByRangeBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="documentCountByRangeBean">
+<xs:complexContent>
+<xs:extension base="tns:documentCountBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="rangeId" type="xs:string"/>
+<xs:element minOccurs="0" name="status" type="xs:string"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="documentCountBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="label" type="xs:string"/>
+<xs:element minOccurs="0" name="numberOfDocs" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDocumentList">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element name="query" type="tns:queryBean"/>
+<xs:element minOccurs="0" name="search" type="tns:searchBeans"/>
+<xs:element minOccurs="0" name="display" type="tns:docDisplayBeans"/>
+<xs:element minOccurs="0" name="order" type="tns:docOrderBeans"/>
+<xs:element minOccurs="0" name="pagination" type="tns:paginationBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="docOrderBeans">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="orderBean" type="tns:docOrderBean"/>
+<xs:element minOccurs="0" name="orderMapping" type="tns:docOrderMappingBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="docOrderBean">
+<xs:complexContent>
+<xs:extension base="tns:orderBean">
+<xs:sequence/>
+<xs:attribute name="field" type="tns:docOrderFieldBean" use="required"/>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:complexType name="orderBean">
+<xs:sequence/>
+<xs:attribute name="type" type="tns:orderType" use="required"/>
+</xs:complexType>
+<xs:complexType name="docOrderMappingBean">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" name="entry" type="tns:docEntry"/>
+</xs:sequence>
+<xs:attribute name="type" type="xs:string" use="required"/>
+</xs:complexType>
+<xs:complexType name="docEntry">
+<xs:sequence/>
+<xs:attribute name="id" type="xs:string" use="required"/>
+</xs:complexType>
+<xs:complexType name="paginationBean">
+<xs:sequence/>
+<xs:attribute name="firstResult" type="xs:long"/>
+<xs:attribute name="maxResult" type="xs:long"/>
+</xs:complexType>
+<xs:complexType name="getDocumentListResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:documentBeanV002"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocList">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element minOccurs="0" name="query" type="tns:exportDocListQueryBean"/>
+<xs:element minOccurs="0" name="display" type="tns:exportDocListDisplayBeans"/>
+<xs:element minOccurs="0" name="pagination" type="tns:paginationBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocListQueryBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="rangeIds">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="rangeId" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocListDisplayBeans">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="displayBean" type="tns:exportDocListDisplayBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocListDisplayBean">
+<xs:sequence/>
+<xs:attribute name="field" type="tns:exportDocListDisplayFieldBean" use="required"/>
+</xs:complexType>
+<xs:complexType name="exportDocListResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:exportDocBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocBean">
+<xs:sequence>
+<xs:element minOccurs="0" name="reference" type="xs:string"/>
+<xs:element minOccurs="0" name="ranges">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="range" type="tns:exportDocRangeBean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="exportDocRangeBean">
+<xs:sequence/>
+<xs:attribute name="rangeId" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="getDocumentCount">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element minOccurs="0" name="query" type="tns:queryBean"/>
+<xs:element minOccurs="0" name="search" type="tns:searchBeans"/>
+<xs:element minOccurs="0" name="countBy" type="tns:docCountByBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="docCountByBean">
+<xs:sequence/>
+<xs:attribute name="countBy" type="tns:docCountByFieldBean" use="required"/>
+<xs:attribute name="countParam" type="xs:string"/>
+</xs:complexType>
+<xs:complexType name="getDocumentCountResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:documentCountBean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDocDetailsByRef">
+<xs:sequence>
+<xs:element name="user" type="tns:userBean"/>
+<xs:element minOccurs="0" name="applicationToken" type="xs:string"/>
+<xs:element name="scope" type="tns:scopeBean"/>
+<xs:element name="locale" type="tns:localeBean"/>
+<xs:element minOccurs="0" name="display" type="tns:docDisplayBeans"/>
+<xs:element name="docReference" type="xs:string"/>
+<xs:element minOccurs="0" name="needFileContent" type="xs:boolean"/>
+<xs:element minOccurs="0" name="scopeIndependant" type="xs:boolean"/>
+<xs:element minOccurs="0" name="version" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getDocDetailsByRefResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:documentBeanV002"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="docDisplayFieldBean">
+<xs:restriction base="xs:string">
+<xs:enumeration value="doc_id"/>
+<xs:enumeration value="doc_oid"/>
+<xs:enumeration value="doc_reference"/>
+<xs:enumeration value="doc_version"/>
+<xs:enumeration value="doc_lastModificationDate"/>
+<xs:enumeration value="doc_publicationDate"/>
+<xs:enumeration value="doc_documentDate"/>
+<xs:enumeration value="doc_creationDate"/>
+<xs:enumeration value="doc_revision"/>
+<xs:enumeration value="doc_numberOfPage"/>
+<xs:enumeration value="doc_docOwner"/>
+<xs:enumeration value="doc_author"/>
+<xs:enumeration value="doc_expireDate"/>
+<xs:enumeration value="doc_partNumber"/>
+<xs:enumeration value="doc_flipFlopGenerated"/>
+<xs:enumeration value="doc_audience"/>
+<xs:enumeration value="doc_keywords"/>
+<xs:enumeration value="doc_attributes"/>
+<xs:enumeration value="doc_files"/>
+<xs:enumeration value="doc_locales"/>
+<xs:enumeration value="doc_documentType"/>
+<xs:enumeration value="doc_productReferences"/>
+<xs:enumeration value="doc_attributeLists"/>
+<xs:enumeration value="doc_docTypeGroups"/>
+<xs:enumeration value="doc_docType"/>
+<xs:enumeration value="doc_ranges"/>
+<xs:enumeration value="doc_programs"/>
+<xs:enumeration value="doc_docAccesses"/>
+<xs:enumeration value="doc_bannerUrl"/>
+<xs:enumeration value="doc_file_sha256"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="queryItemName">
+<xs:restriction base="xs:string">
+<xs:enumeration value="CAT_0_OID"/>
+<xs:enumeration value="CAT_1_OID"/>
+<xs:enumeration value="TOPIC_OID"/>
+<xs:enumeration value="TOPIC_SUB_OID"/>
+<xs:enumeration value="APPLICATION_OID"/>
+<xs:enumeration value="APPLICATION_NAME"/>
+<xs:enumeration value="SEGMENT_OID"/>
+<xs:enumeration value="DOMAIN_OID"/>
+<xs:enumeration value="DOC_OID"/>
+<xs:enumeration value="DOC_REFERENCE"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="searchFieldBean">
+<xs:restriction base="xs:string">
+<xs:enumeration value="doc_title"/>
+<xs:enumeration value="doc_description"/>
+<xs:enumeration value="doc_keywords"/>
+<xs:enumeration value="doc_reference"/>
+<xs:enumeration value="product_reference"/>
+<xs:enumeration value="docType_name"/>
+<xs:enumeration value="range_name"/>
+<xs:enumeration value="attListType"/>
+<xs:enumeration value="application"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="docOrderFieldBean">
+<xs:restriction base="xs:string">
+<xs:enumeration value="doc_documentDate"/>
+<xs:enumeration value="doc_reference"/>
+<xs:enumeration value="doc_popularity"/>
+<xs:enumeration value="docType_name"/>
+<xs:enumeration value="doc_title"/>
+<xs:enumeration value="docType_displayOrder"/>
+<xs:enumeration value="docType_orderMapping"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="orderType">
+<xs:restriction base="xs:string">
+<xs:enumeration value="asc"/>
+<xs:enumeration value="desc"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="exportDocListDisplayFieldBean">
+<xs:restriction base="xs:string">
+<xs:enumeration value="doc_reference"/>
+<xs:enumeration value="doc_ranges"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="docCountByFieldBean">
+<xs:restriction base="xs:string">
+<xs:enumeration value="range"/>
+<xs:enumeration value="language"/>
+<xs:enumeration value="docType"/>
+<xs:enumeration value="docTypeGroup"/>
+<xs:enumeration value="attType"/>
+<xs:enumeration value="attributeList"/>
+<xs:enumeration value="attListType"/>
+<xs:enumeration value="attribute"/>
+<xs:enumeration value="category"/>
+<xs:enumeration value="segment"/>
+<xs:enumeration value="application"/>
+<xs:enumeration value="domain"/>
+<xs:enumeration value="brand"/>
+<xs:enumeration value="fileExtension"/>
+<xs:enumeration value="masterRange"/>
+<xs:enumeration value="all"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="DocumentServiceException" type="tns:DocumentServiceException"/>
+<xs:complexType name="DocumentServiceException">
+<xs:sequence>
+<xs:element minOccurs="0" name="message" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="getDocDetails">
+<wsdl:part element="tns:getDocDetails" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="exportDocList">
+<wsdl:part element="tns:exportDocList" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentCount">
+<wsdl:part element="tns:getDocumentCount" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentCountByRange">
+<wsdl:part element="tns:getDocumentCountByRange" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentList">
+<wsdl:part element="tns:getDocumentList" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentCountResponse">
+<wsdl:part element="tns:getDocumentCountResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="DocumentServiceException">
+<wsdl:part element="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentListResponse">
+<wsdl:part element="tns:getDocumentListResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="exportDocListResponse">
+<wsdl:part element="tns:exportDocListResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocDetailsByRefResponse">
+<wsdl:part element="tns:getDocDetailsByRefResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocDetailsResponse">
+<wsdl:part element="tns:getDocDetailsResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocumentCountByRangeResponse">
+<wsdl:part element="tns:getDocumentCountByRangeResponse" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:message name="getDocDetailsByRef">
+<wsdl:part element="tns:getDocDetailsByRef" name="parameters"> </wsdl:part>
+</wsdl:message>
+<wsdl:portType name="DocumentSecuredServiceV002">
+<wsdl:operation name="getDocDetails">
+<wsdl:input message="tns:getDocDetails" name="getDocDetails"> </wsdl:input>
+<wsdl:output message="tns:getDocDetailsResponse" name="getDocDetailsResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentCountByRange">
+<wsdl:input message="tns:getDocumentCountByRange" name="getDocumentCountByRange"> </wsdl:input>
+<wsdl:output message="tns:getDocumentCountByRangeResponse" name="getDocumentCountByRangeResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentList">
+<wsdl:input message="tns:getDocumentList" name="getDocumentList"> </wsdl:input>
+<wsdl:output message="tns:getDocumentListResponse" name="getDocumentListResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="exportDocList">
+<wsdl:input message="tns:exportDocList" name="exportDocList"> </wsdl:input>
+<wsdl:output message="tns:exportDocListResponse" name="exportDocListResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentCount">
+<wsdl:input message="tns:getDocumentCount" name="getDocumentCount"> </wsdl:input>
+<wsdl:output message="tns:getDocumentCountResponse" name="getDocumentCountResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocDetailsByRef">
+<wsdl:input message="tns:getDocDetailsByRef" name="getDocDetailsByRef"> </wsdl:input>
+<wsdl:output message="tns:getDocDetailsByRefResponse" name="getDocDetailsByRefResponse"> </wsdl:output>
+<wsdl:fault message="tns:DocumentServiceException" name="DocumentServiceException"> </wsdl:fault>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="DocumentSecuredServiceV002SoapBinding" type="tns:DocumentSecuredServiceV002">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="getDocDetails">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="getDocDetails">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getDocDetailsResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentCountByRange">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="getDocumentCountByRange">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getDocumentCountByRangeResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentList">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="getDocumentList">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getDocumentListResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="exportDocList">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="exportDocList">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="exportDocListResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocumentCount">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="getDocumentCount">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getDocumentCountResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+<wsdl:operation name="getDocDetailsByRef">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="getDocDetailsByRef">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="getDocDetailsByRefResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+<wsdl:fault name="DocumentServiceException">
+<soap:fault name="DocumentServiceException" use="literal"/>
+</wsdl:fault>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="DocumentSecuredServiceV002">
+<wsdl:port binding="tns:DocumentSecuredServiceV002SoapBinding" name="DocumentSecuredServiceImplV002Port">
+<soap:address location="http://bsl-pp.btsec.dev.schneider-electric.com/bsl-fo-service/DocumentSecuredServiceV002"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>
